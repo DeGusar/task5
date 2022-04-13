@@ -1,25 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Grid from '@mui/material/Grid';
+import { Divider, Drawer } from '@mui/material';
+import { LeftSideMenu } from './components/LeftSideMenu';
+import { Emails } from './components/Emails';
+import { Box } from '@mui/system';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid container spacing={0} sx={{ width: '100vw', height: '100vh' }}>
+      <LeftSideMenu
+        array={[
+          { isOnline: true, avatarName: 'Denis' },
+          { isOnline: false, avatarName: 'Dmitriy' },
+        ]}
+      />
+      <Divider orientation="vertical" flexItem />
+      <Emails />
+      {/* <Drawer
+        sx={{
+          bottom: '20px',
+          right: '20px',
+          left: 'none',
+        }}
+        anchor="bottom"
+        open={true}
+        onClose={() => {}}
+      >
+        <Box sx={{ width: '500px', height: '500px' }}></Box>
+      </Drawer> */}
+    </Grid>
   );
 }
 
