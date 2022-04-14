@@ -15,7 +15,6 @@ import date from 'date-and-time';
 function App() {
   const [isSignin, setSignin] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [userName, setUsername] = useState('');
   const [users, setUsers] = useState<UserType[]>([]);
@@ -29,7 +28,7 @@ function App() {
       const { event } = message[0] || message;
       switch (event) {
         case 'connection':
-          setUsers((prev) => message);
+          setUsers(message);
           break;
         case 'message':
           setMessages((prev) => [message, ...prev]);

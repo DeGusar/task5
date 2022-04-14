@@ -13,7 +13,6 @@ export function Login(props: { clickLogin: (userName: string) => void }) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const userName = '' + data.get('userName');
-    const password = '' + data.get('password');
     props.clickLogin(userName);
   };
   return (
