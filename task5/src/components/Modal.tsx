@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 import SendIcon from '@mui/icons-material/Send';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -12,11 +12,28 @@ import {
   Button,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+export type FormType = {
+  recipient: string;
+  subject: string;
+  messageText: string;
+};
 type ModalProp = {
   isOpen: boolean;
+  handleClick: ({ recipient, subject, messageText }: FormType) => void;
+  handleClose: () => void;
 };
 
-export function Modal({ isOpen }: ModalProp) {
+export function Modal({ isOpen, handleClick, handleClose }: ModalProp) {
+  const [recipient, setRecipient] = useState('');
+  const [subject, setSubject] = useState('');
+  const [messageText, setMessage] = useState('');
+
+  function handleSend() {
+    handleClick({ recipient, subject, messageText });
+    setRecipient('');
+    setSubject('');
+    setMessage('');
+  }
   if (!isOpen) return null;
   return (
     <Box
@@ -25,6 +42,7 @@ export function Modal({ isOpen }: ModalProp) {
         height: '500px',
         position: 'absolute',
         bottom: '0',
+        zIndex: '5',
         right: '20px',
         backgroundColor: 'white',
         boxShadow:
@@ -44,26 +62,37 @@ export function Modal({ isOpen }: ModalProp) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             New message
           </Typography>
-          <IconButton color="inherit" sx={{ marginRight: -2 }}>
+          <IconButton color="inherit" sx={{ marginRight: -2 }} onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
       <Box paddingLeft={2} paddingRight={2}>
         <Input
-          placeholder="Recipients"
+          placeholder="Recipient"
           sx={{ marginTop: '3px' }}
           size="medium"
           fullWidth
+          value={recipient}
+          onChange={(event) => setRecipient(event.target.value)}
           disableUnderline
         />
         <Divider />
-        <Input placeholder="Subject" size="medium" fullWidth disableUnderline />
+        <Input
+          placeholder="Subject"
+          onChange={(event) => setSubject(event.target.value)}
+          size="medium"
+          value={subject}
+          fullWidth
+          disableUnderline
+        />
         <Divider />
         <TextField
           multiline
           variant="standard"
           fullWidth
+          value={messageText}
+          onChange={(event) => setMessage(event.target.value)}
           rows={14}
           sx={{ height: '340px', overflow: 'hidden' }}
           InputProps={{ disableUnderline: true }}
@@ -71,8 +100,9 @@ export function Modal({ isOpen }: ModalProp) {
         <Button
           variant="contained"
           size="medium"
-          sx={{ textTransform: 'none' }}
-          endIcon={<SendIcon />}
+          sx={{ textTransform: 'none', width: '110px' }}
+          onClick={handleSend}
+          endIcon={<SendIcon sx={{ ml: 2 }} />}
         >
           Send
         </Button>

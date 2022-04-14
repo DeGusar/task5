@@ -6,12 +6,12 @@ import EmailIcon from '@mui/icons-material/Email';
 import { AvatarOnline, AvatarOffline } from '../components/Avatars';
 import { Modal } from './Modal';
 
-type userType = {
+export type UserType = {
   isOnline: boolean;
-  avatarName: string;
+  userName: string;
 };
 type LeftMenuType = {
-  array: userType[];
+  array: UserType[];
 };
 
 export function LeftSideMenu({ array }: LeftMenuType) {
@@ -37,7 +37,7 @@ export function LeftSideMenu({ array }: LeftMenuType) {
             Compose
           </Button>
           <Box sx={{ width: '100%', height: '100%' }}>
-            <Typography variant="h6">Contacts:</Typography>
+            <Typography variant="h6">Co:</Typography>
             <Stack
               direction="column"
               spacing={3}
@@ -45,18 +45,22 @@ export function LeftSideMenu({ array }: LeftMenuType) {
               padding={2}
               alignItems="start"
             >
-              {array.map((user) => {
+              {array.map((user, i) => {
                 return user.isOnline ? (
-                  <AvatarOnline name={user.avatarName} />
+                  <AvatarOnline name={user.userName} key={i} />
                 ) : (
-                  <AvatarOffline name={user.avatarName} />
+                  <AvatarOffline name={user.userName} key={i} />
                 );
               })}
             </Stack>
           </Box>
         </Stack>
       </Grid>
-      <Modal isOpen={openModal}></Modal>
+      <Modal
+        isOpen={openModal}
+        handleClose={() => setOpenModal(false)}
+        handleClick={() => setOpenModal(false)}
+      ></Modal>
     </>
   );
 }

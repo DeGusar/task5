@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
 import {
   Accordion,
   AccordionSummary,
@@ -11,32 +10,29 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ReplyIcon from '@mui/icons-material/Reply';
 
-export function Acordion() {
+export function Acordion({ subject, date, from, messageText }) {
   return (
-    <Accordion sx={{ width: '100%', background: 'rgba(242,245,245,0.8)', color: '#202124' }}>
+    <Accordion sx={{ width: '100%', background: 'white', color: '#202124' }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
         <Typography variant="subtitle2" sx={{ width: '10%' }}>
-          from: USER
+          from: {from}
         </Typography>
         <Typography variant="subtitle2" sx={{ flexGrow: 1, ml: '5%' }}>
-          Theme: Lorem Ipsum
+          Subject: {subject}
         </Typography>
         <Typography variant="subtitle2" sx={{ width: '5', mr: '2%' }}>
-          17:57
+          {date}
         </Typography>
       </AccordionSummary>
       <Divider />
       <AccordionDetails
         sx={{ padding: 2, flexWrap: 'nowrap', display: 'flex', alignItems: 'center' }}
       >
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-          sit amet blandit leo lobortis eget.
-        </Typography>
+        <Typography>{messageText}</Typography>
         <Button
           variant="text"
           size="small"
